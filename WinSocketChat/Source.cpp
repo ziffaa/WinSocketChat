@@ -9,8 +9,8 @@ int main()
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 	int nChoice;
-	int port = 24242; //выбираем порт
-	string ipAddress = "127.0.0.1"; //Адрес сервера
+	int port = 24242; //РІС‹Р±РёСЂР°РµРј РїРѕСЂС‚
+	string ipAddress = "127.0.0.1"; //РђРґСЂРµСЃ СЃРµСЂРІРµСЂР°
 
 	char receiveMessage[MAXSTRLEN];
 	char sendMessage[MAXSTRLEN];
@@ -23,41 +23,41 @@ int main()
 	{
 		ServerSocket server;
 		cout << "Starting server..." << endl;
-		//Запускаем сервер
+		//Р—Р°РїСѓСЃРєР°РµРј СЃРµСЂРІРµСЂ
 		server.StartHosting(port);
 		while (true)
 		{
 			cout << "\tWaiting..." << endl;
-			//Получаем данные от клиента
-			//и сохраняем в переменной receiveMessage
+			//РџРѕР»СѓС‡Р°РµРј РґР°РЅРЅС‹Рµ РѕС‚ РєР»РёРµРЅС‚Р°
+			//Рё СЃРѕС…СЂР°РЅСЏРµРј РІ РїРµСЂРµРјРµРЅРЅРѕР№ receiveMessage
 			server.ReceiveData(receiveMessage, MAXSTRLEN);
 			cout << "Received: " << receiveMessage << endl;
 			//// !!!! 
-			string Menu = "1. кола(30грн)\n2. картошка фри(40грн)\n3. мороженное(25грн)\n";
+			string Menu = "1. РєРѕР»Р°(30РіСЂРЅ)\n2. РєР°СЂС‚РѕС€РєР° С„СЂРё(40РіСЂРЅ)\n3. РјРѕСЂРѕР¶РµРЅРЅРѕРµ(25РіСЂРЅ)\n";
 			if (strcmp(receiveMessage, "Menu") == 0)
 			{
 				server.SendDataMessage(Menu.c_str());
 			}
-			//Отправляем данные клиенту
+			//РћС‚РїСЂР°РІР»СЏРµРј РґР°РЅРЅС‹Рµ РєР»РёРµРЅС‚Сѓ
 
 			string str = "";
 			
 			if (strcmp(receiveMessage, "1") == 0) 
 			{
-				str = "30 грн";
+				str = "30 РіСЂРЅ";
 			}
 			if (strcmp(receiveMessage, "2") == 0)
 			{
-				str = "40 грн";
+				str = "40 РіСЂРЅ";
 			}
 			if (strcmp(receiveMessage, "3") == 0)
 			{
-				str = "25 грн";
+				str = "25 РіСЂРЅ";
 			}
 
 			server.SendDataMessage(str.c_str());
 
-			//Если есть сообщение "end", завершаем работу
+			//Р•СЃР»Рё РµСЃС‚СЊ СЃРѕРѕР±С‰РµРЅРёРµ "end", Р·Р°РІРµСЂС€Р°РµРј СЂР°Р±РѕС‚Сѓ
 
 			if (strcmp(receiveMessage, "end") == 0 ||
 				strcmp(sendMessage, "end") == 0)
@@ -69,13 +69,13 @@ int main()
 		cout << "IP address = 127.0.0.1 " << endl;
 			
 		ClientSocket client;
-		//подключаемся к серверу
+		//РїРѕРґРєР»СЋС‡Р°РµРјСЃСЏ Рє СЃРµСЂРІРµСЂСѓ
 		client.ConnectToServer(ipAddress.c_str(), port);
 		while (true)
 		{
-			//отправляем сообщение
-		//Отправляем данные клиенту
-			cout << "Введите строку для отправки ";
+			//РѕС‚РїСЂР°РІР»СЏРµРј СЃРѕРѕР±С‰РµРЅРёРµ
+		//РћС‚РїСЂР°РІР»СЏРµРј РґР°РЅРЅС‹Рµ РєР»РёРµРЅС‚Сѓ
+			cout << "Р’РІРµРґРёС‚Рµ СЃС‚СЂРѕРєСѓ РґР»СЏ РѕС‚РїСЂР°РІРєРё ";
 			char buff[100];
 			cin.ignore();
 			cin.get(buff,100);
@@ -84,26 +84,16 @@ int main()
 
 			cout << "\tWaiting" << endl;
 
-			//получаем ответ
+			//РїРѕР»СѓС‡Р°РµРј РѕС‚РІРµС‚
 			client.ReceiveData(receiveMessage, MAXSTRLEN);
 			cout << "Received: " << receiveMessage << endl;
 			if (strcmp(receiveMessage, "end") == 0 ||
 				strcmp(sendMessage, "end") == 0)
 				break;
 		}
-		//Закрываем соединение
+		//Р—Р°РєСЂС‹РІР°РµРј СЃРѕРµРґРёРЅРµРЅРёРµ
 		client.CloseConnection();
 	}
 	else if (nChoice == 3)
 		return 0;
 }
-
-
-
-
-
-
-
-
-
-
